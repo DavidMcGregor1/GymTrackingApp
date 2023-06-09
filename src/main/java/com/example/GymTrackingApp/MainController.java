@@ -45,8 +45,27 @@ public class MainController {
 
         return result;
 
-
-
     }
+
+
+
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @PostMapping(path = "/addExercise", consumes = "application/json", produces = "application/json")
+    public ExercisesVm addExercises(@RequestBody ExercisesVm submittedExercise) {
+
+        System.out.println("Hit addExercise endpoint");
+        Exercises newDataBaseExercise = new Exercises();
+
+        newDataBaseExercise.setExerciseName(submittedExercise.exerciseName);
+
+        repositoryExercises.save(newDataBaseExercise);
+
+        return submittedExercise;
+        
+    }
+
+
 
 }

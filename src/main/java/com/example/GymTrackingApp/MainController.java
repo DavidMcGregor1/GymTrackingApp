@@ -63,7 +63,7 @@ public class MainController {
         repositoryExercises.save(newDataBaseExercise);
 
         return submittedExercise;
-        
+
     }
 
 

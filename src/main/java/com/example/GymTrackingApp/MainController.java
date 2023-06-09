@@ -66,6 +66,20 @@ public class MainController {
 
     }
 
+//    @RequestBody(value = HttpStatus.OK)
+//    @ResponseBody
+//    @PostMapping(path = "addCategory", consumes = "application/json", produces = "application/json")
+//    public CategoriesVm addCategory(@RequestBody CategoriesVm submittedCategory) {
+//
+//        System.out.println("Hit addCategory endpoint");
+//
+//    }
+
+
+
+
 
 
 }
+
+

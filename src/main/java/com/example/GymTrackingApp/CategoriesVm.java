@@ -10,7 +10,7 @@ public class CategoriesVm {
     }
 
     public CategoriesVm() {
-        
+
     }
 
 }

@@ -44,7 +44,7 @@ public class Exercises {
         this.exerciseName = exerciseName;
     }
 
-    
+
 
 
 

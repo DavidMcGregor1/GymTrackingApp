@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercises by Category</title>
+</head>
+<body>
+<h2>Exercises by Category</h2>
+<h3>Category: <span th:text="${categoryName}"></span></h3>
+<ul>
+  <li th:each="exercise : ${exercises}" th:text="${exercise.exerciseName}"></li>
+</ul>
+</body>
+</html>

@@ -12,11 +12,15 @@ import java.util.*;
 @Controller
 public class MainController {
 
-    public MainController(ExercisesRepository e) {
+    public MainController(ExercisesRepository e, CategoriesRepository c, EcRepository ec) {
         repositoryExercises = e;
+        repositoryCategories = c;
+        repositoryEcMapping = ec;
     }
 
     private ExercisesRepository repositoryExercises;
+    private CategoriesRepository repositoryCategories;
+    private EcRepository repositoryEcMapping;
 
     @GetMapping("/hello")
     public String sayHello() {
@@ -66,15 +70,80 @@ public class MainController {
 
     }
 
-//    @RequestBody(value = HttpStatus.OK)
-//    @ResponseBody
-//    @PostMapping(path = "addCategory", consumes = "application/json", produces = "application/json")
-//    public CategoriesVm addCategory(@RequestBody CategoriesVm submittedCategory) {
-//
-//        System.out.println("Hit addCategory endpoint");
-//
-//    }
 
+
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @PostMapping(path = "addEcMapping", consumes = "application/json", produces = "application/json")
+    public EcVm addEcMapping(@RequestBody EcVm submittedEcMap) {
+        System.out.println("Hit addEcMapping endpoint");
+
+        ECs newDataBaseMap = new ECs();
+        newDataBaseMap.setCategoryId(submittedEcMap.categoryId);
+        newDataBaseMap.setExerciseId(submittedEcMap.exerciseId);
+
+        repositoryEcMapping.save(newDataBaseMap);
+
+        return submittedEcMap;
+
+    }
+
+
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @GetMapping(path = "/getEcMapping", consumes = "application/json", produces = "application/json")
+    public String getEcMapping() {
+        System.out.println("Hit getEcMapping endpoint");
+
+        List<ECs> allDbMappings = repositoryEcMapping.findAll();
+
+        String result = "All Exercises ---> ";
+
+        for (int i = 0; i < allDbMappings.stream().count(); i++) {
+            ECs a = allDbMappings.get(i);
+
+            if (a != null) {
+                result = result + "ExerciseID = " +  a.getExerciseId() + " CategoryID = " + a.getCategoryId() + ", ";
+            }
+        }
+
+        return result;
+
+    }
+
+
+
+    @GetMapping("/exercisesByCategory/{categoryId}")
+    public String logExercisesByCategory(@PathVariable Integer categoryId, Model model) {
+
+        System.out.println("Hit exercisesByCategory endpoint");
+        System.out.println("Exercises in Category " + categoryId + ":");
+
+
+        List<ECs> mappings = repositoryEcMapping.findByCategoryId(categoryId);
+        List<Exercises> exercises = new ArrayList<>();
+
+
+        for (ECs mapping : mappings) {
+
+            int exerciseId = mapping.getExerciseId();
+            int elCategoryId = mapping.getCategoryId();
+            Exercises exercise = repositoryExercises.findById(exerciseId).orElse(null);
+            Categories aCategory = repositoryCategories.findById(elCategoryId).orElse(null);
+            if (exercise != null) {
+                System.out.println(exercise.getExerciseName());
+                exercises.add(exercise);
+
+            }
+        }
+
+        model.addAttribute("exercises", exercises);
+        model.addAttribute("categoryName", categoryId);
+
+        return "exercisesByCategory";
+    }
 
 
 

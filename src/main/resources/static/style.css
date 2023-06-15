@@ -1,0 +1,558 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+
+:root {
+  --header-height: 3rem;
+
+  --reptile-body: #201D1E;
+  --reptile-grey: #2F3532;
+  --reptile-button: #089F6A;
+  --reptile-button-Grn: #20C78C;
+  --reptile-button-Blu: #41A49D;
+  
+  --body-font: 'Outfit', sans-serif;
+  --h1-font-size: 1.5rem;
+  --normal-font-size: .938rem;
+  --tiny-font-size: .625rem;
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*=============== BASE ===============*/
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+}
+
+.makeWhite {
+  color: white;
+}
+
+.makeGreen {
+  color: var(--reptile-button);
+}
+
+.biggerFont {
+  font-size: 27px;
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: var(--header-height) 0 0 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--reptile-body);
+  color: var(--text-color);
+}
+
+ul {
+  list-style: none;
+}
+
+p {
+  color: rgb(189, 180, 181);
+  font-weight: bolder;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.section {
+  /* padding: 4.5rem 0 2rem; */
+}
+
+.section__title {
+  font-size: var(--h1-font-size);
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section__height {
+  height: 100vh;
+}
+
+
+/*=============== LAYOUT ===============*/
+
+.container {
+  max-width: 968px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/*=============== HEADER ===============*/
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--container-color);
+  z-index: var(--z-fixed);
+  transition: .4s;
+}
+
+/*=============== NAV ===============*/
+
+.nav {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__list, 
+.nav__link {
+  display: flex;
+}
+
+.nav__link {
+  flex-direction: column;
+  align-items: center;
+  row-gap: 4px;
+  color: var(--title-color);
+  font-weight: 600;
+}
+
+.nav__list {
+  justify-content: space-around;
+}
+
+.nav__name {
+  font-size: var(--tiny-font-size);
+  
+}
+
+.active-link {
+  position: relative;
+  color: var(--first-color);
+  transition: .3s;
+}
+
+/*=============== Home page ===============*/
+
+#nwDivId {
+  position: relative;
+  top: 25%;
+  text-align: center;
+}
+
+#nwBtn {
+  height: 85px;
+  width: 220px;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  font-size: larger ;
+  color: #FFF;
+}
+
+/*=============== Workout page ===============*/
+
+
+.workout {
+  overflow-y: scroll;
+  background-color: #ffffff0e;
+  /* width: 80%;
+  height: 450px;
+  padding: 25px; */
+  border-radius: 25px;
+}
+
+.workoutH2 {
+  /* background-color: #288f51; */
+  background-color: var(--reptile-button);
+}
+
+.pastWorkouts {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+#past-workouts {
+  display: flex;
+  align-items: center;
+  background-color: #333333;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  text-align: center;
+  padding: 10px;
+  overflow-y: scroll;
+  height: 365px;
+  
+}
+
+.workout p {
+  width: 40%;
+  outline: 1px solid lightgray;
+  margin: 0;
+  padding: 10px;
+}
+
+#vwBtn {
+  height: 85px;
+  width: 200px;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  color: #FFF;
+  font-size: larger ;
+}
+
+#vwDivId {
+  position: relative;
+  top: 8%;
+  text-align: center  ;
+}
+
+#lastWorkout {
+  text-align: center;
+  color: rgb(189, 180, 181);
+}
+
+/*=============== STATISTICS PAGE ===============*/
+
+.statsP {
+  font-size: larger;
+  text-align: center;
+}
+
+#gymVisits {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #089F6A;
+}
+
+#gymTime {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #089F6A;
+}
+
+#greenDisplays {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+#greenDisplays div {
+  padding: 15px;
+  width: 40%;
+  border-radius: 20px;
+}
+
+#visitsDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#numOfTotalVisits {
+  text-align: center;
+}
+
+/*=============== ACCOUNT PAGE ===============*/
+
+.goals {
+  background-color: var(--reptile-button-Blu);
+}
+
+#goal1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+#goal2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#goal3Div {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+#goal3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 64px;
+  width: 40%;
+  gap: 10px;
+  border-radius: 20px;
+}
+
+#premiumBtn {
+  height: 85px;
+  width: 280px;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  color: #FFF;
+  font-size: larger ;
+}
+
+#premiumDiv {
+  position: relative;
+  top: 8%;
+  text-align: center  ;
+}
+
+.goalsFont {
+  font-size: 20px;
+  color: #FFF;
+}
+
+/*=============== SETTINGS PAGE ===============*/
+
+.settingsP {
+  font-size: larger;
+}
+
+#greenBtn {
+  background-color: var(--reptile-button-Grn);
+  width: 80px;
+  height:20px;
+}
+
+#blueBtn {
+  background-color: var(--reptile-button-Blu);
+  width: 80px;
+  height:20px;
+}
+
+#colourThemeDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+#changeGoalsBtn {
+  height: 70px;
+  width: 170px;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  color: #FFF;
+  font-size: larger ;
+}
+
+#resetStatsBtn {
+  height: 70px;
+  width: 170px;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  color: #FFF;
+  font-size: larger ;
+}
+
+#ManageSubBtn {
+  
+  width: 50%;
+  padding: 5%;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  color: #FFF;
+  font-size: larger ;
+}
+
+#logOutBtn {
+  height: 85px;
+  width: 200px;
+  border-radius: 40px;
+  border: none;
+  background-color: rgb(128, 22, 22);
+  color: #FFF;
+  font-size: larger ;
+}
+
+#logOutDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.settingsBtns {
+  display: flex;
+}
+
+.settingsButtons {
+  background-color: var(--reptile-button-Grn);
+}
+
+#settingsDisplays {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+#greenDisplays div {
+  padding: 15px;
+  width: 40%;
+  border-radius: 20px;
+}
+
+.scroll-header {
+  box-shadow: 0 1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+}
+
+/*=============== Swiper ===============*/
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+#nextArrow {
+  color: var(--reptile-button);
+}
+
+#prevArrow {
+  color: var(--reptile-button);
+}
+
+#bottomBlobs {
+  color: var(--reptile-button);
+}
+
+#outer {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 400px;
+  width: 300px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/*=============== MEDIA QUERIES ===============*/
+
+@media screen and (min-width: 968px) {
+  :root {
+    --h1-font-size: 2.25rem;
+    --normal-font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .nav__menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: var(--reptile-grey);
+    box-shadow: 0 -1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+    width: 100%;
+    height: 4rem;
+    padding: 0 1rem;
+    display: grid;
+    align-content: center;
+    transition: .4s;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .nav__name {
+    display: none;
+  }
+}
+
+/* For medium devices */
+@media screen and (min-width: 576px) {
+  .nav__list {
+    justify-content: center;
+    column-gap: 3rem;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  body {
+    margin: 0;
+  }
+  .section {
+    padding: 7rem 0 2rem;
+  }
+  .nav {
+    height: calc(var(--header-height) + 1.5rem); /* 4.5rem */
+  }
+  .nav__img {
+    display: none;
+  }
+  .nav__icon {
+    display: none;
+  }
+  .nav__name {
+    font-size: var(--normal-font-size);
+  }
+  .nav__link:hover {
+    color: var(--first-color);
+  }
+
+  .active-link::before {
+    content: '';
+    position: absolute;
+    bottom: -.75rem;
+    width: 4px;
+    height: 4px;
+    background-color: var(--first-color);
+    border-radius: 50%;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

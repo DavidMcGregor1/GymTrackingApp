@@ -3,10 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Exercises by Category</title>
+  <link rel="stylesheet" type="text/css" href="/static/style.css" />
+  
+
+
+
+
+
 </head>
 <body>
-<h2>Exercises by Category</h2>
+<h1>I should be red</h1>
+<h2 id="test">Exercises by Category</h2>
 <h3>Category: <span th:text="${categoryName}"></span></h3>
+
 <ul>
   <li th:each="exercise : ${exercises}" th:text="${exercise.exerciseName}"></li>
 </ul>

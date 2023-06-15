@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+
+:root {
+    --header-height: 3rem;
+  
+    --reptile-body: #201D1E;
+    --reptile-grey: #2F3532;
+    --reptile-button: #089F6A;
+    --reptile-button-Grn: #20C78C;
+    --reptile-button-Blu: #41A49D;
+    
+    --body-font: 'Outfit', sans-serif;
+    --h1-font-size: 1.5rem;
+    --normal-font-size: .938rem;
+    --tiny-font-size: .625rem;
+    --z-tooltip: 10;
+    --z-fixed: 100;
+  }
+  
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  html {
+    width: 100vw;
+    height: 100vh;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--reptile-body);
+    color: var(--text-color);
+  }
+
+  p {
+    color: rgb(189, 180, 181);
+    font-weight: bolder;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .section__title {
+    font-size: var(--h1-font-size);
+    color: white;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-top: 2px;
+  }
+
+  .section {
+    padding: 4.5rem 0 2rem;
+  }
+
+  label {
+    color: rgb(189, 180, 181);
+    font-weight: bolder;
+  }
+
+  main {
+  }
+
+  /* f */
+
+  #exercises {
+    text-align: center;
+  }
+
+  #reps {
+        position: relative;
+        top: 16%;
+        text-align: center  ;
+  }
+
+  #repBox {
+    width: 15%
+  }
+
+  #weight {
+    position: relative;
+    top: 16%;
+    text-align: center  ;
+}
+
+#weightBox {
+    width: 15%
+  }
+
+  #addBtn {
+    height: 70px;
+  width: 200px;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--reptile-button);
+  color: #FFF;
+  font-size: larger ;
+  }
+
+  #addDiv {
+    position: relative;
+    top: 16%;
+    text-align: center  ;
+}
+
+#closeDiv {
+    display: flex;
+    flex-direction: row-reverse;
+    /* padding-right: 8px; */
+    padding-top: -10px;
+}
+
+#closeBtn {
+
+    text-align: center;
+    background-color: red;
+    color: #FFF;
+    font-size:x-large;
+    width: 8%;
+    height: 20%;
+    
+}

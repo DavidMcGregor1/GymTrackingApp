@@ -126,12 +126,19 @@ public class MainController {
         List<Exercises> exercises = new ArrayList<>();
 
 
+        System.out.println("New Logging:");
+        System.out.println("______________");
+
         for (ECs mapping : mappings) {
 
             int exerciseId = mapping.getExerciseId();
             int elCategoryId = mapping.getCategoryId();
+            System.out.println("exerciseId" + exerciseId);
+            System.out.println("elCategoryId" + elCategoryId);
             Exercises exercise = repositoryExercises.findById(exerciseId).orElse(null);
+            System.out.println("exercise: " + exercise);
             Categories aCategory = repositoryCategories.findById(elCategoryId).orElse(null);
+            System.out.println("aCategory " + aCategory);
             if (exercise != null) {
                 System.out.println(exercise.getExerciseName());
                 exercises.add(exercise);
@@ -139,10 +146,21 @@ public class MainController {
             }
         }
 
+
+        System.out.println("Exercises: " + exercises);
+
+
         model.addAttribute("exercises", exercises);
         model.addAttribute("categoryName", categoryId);
 
         return "exercisesByCategory";
+    }
+
+
+    @GetMapping(path = "/mainPage")
+    public String mainPage() {
+        System.out.println("Hit MainPage endpoint");
+        return "index.html";
     }
 
 

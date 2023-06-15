@@ -157,6 +157,24 @@ public class MainController {
     }
 
 
+    @GetMapping(path = "/exercises/{categoryId}")
+    @ResponseBody
+    public List<Exercises> getExercisesByCategory(@PathVariable Integer categoryId) {
+        List<ECs> mappings = repositoryEcMapping.findByCategoryId(categoryId);
+        List<Exercises> exercises = new ArrayList<>();
+
+        for (ECs mapping : mappings) {
+            int exerciseId = mapping.getExerciseId();
+            Exercises exercise = repositoryExercises.findById(exerciseId).orElse(null);
+            if (exercise != null) {
+                exercises.add(exercise);
+            }
+        }
+
+        return exercises;
+    }
+
+
     @GetMapping(path = "/mainPage")
     public String mainPage() {
         System.out.println("Hit MainPage endpoint");

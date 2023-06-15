@@ -28,71 +28,56 @@
     <div id="exercises">
 
         <label for="cars">Abs:</label>
-        <select name="cars" id="cars">
-            <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Crunches">Crunches</option>
-            <option value="Leg Raises">Leg Raises</option>
-            <option value="Plank">Plank</option>
-        </select>
+<select name="cars" id="exercisesDropdown_1">
+    <option value="" disabled selected>--Select an exercise--</option>
+</select>
 
         <br><br><br>
 
         <label for="cars">Back:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="exercisesDropdown_2">
             <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Lat Pull Down">Lat Pull Down</option>
-            <option value="Dumbbell Row">Dumbbell Row</option>
-            <option value="Deadlifts">Deadlifts</option>
+
         </select>
 
         <br><br><br>
 
         <label for="cars">Biceps:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="exercisesDropdown_3">
             <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Dumbbell Curls">Dumbbell Curls</option>
-            <option value="Preacher Curls">Preacher Curls</option>
-            <option value="Hammer Curls">Hammer Curls</option>
+
         </select>
 
         <br><br><br>
         
         <label for="cars">Chest:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="exercisesDropdown_4">
             <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Bench Press">Bench Press</option>
-            <option value="Dumbbell Bench Press">Dumbbell Bench Press</option>
-            <option value="Cable Flys">Cable Flys</option>
+
         </select>
 
         <br><br><br>
         
         <label for="cars">Legs:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="exercisesDropdown_5">
             <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Squats">Squats</option>
-            <option value="Leg Extenstions">Leg Extenstions</option>
-            <option value="Hamstring Curls">Hamstring Curls</option>
+
         </select>
 
         <br><br><br>
         
         <label for="cars">Shoulders:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="exercisesDropdown_6">
             <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Shoulder Press">Shoulder Press</option>
-            <option value="Lateral Raises">Lateral Raises</option>
-            <option value="Rear Delt Flys">Rear Delt Flys</option>
+
         </select>
 
         <br><br><br>
         
         <label for="cars">Triceps:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="exercisesDropdown_7">
             <option value="" disabled selected>--Select an exercise--</option>
-            <option value="Crunches">Rope Pushdown</option>
-            <option value="Leg Raises">Bar Pushdown</option>
-            <option value="Overhead Extensions">Overhead Extensions</option>
+            
         </select>
         <br><br><br> <br>       
 
@@ -118,5 +103,95 @@
 
     </main>
     <script src="../js/nw.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+  $(document).ready(function() {
+    // Define an array of category IDs
+    var categoryIds = [1, 2, 3, 4, 5, 6, 7];
+
+    // Initialize a variable to store the selected exercise
+    var selectedExercise = null;
+
+    // Loop through each category ID
+    categoryIds.forEach(function(categoryId) {
+      // Get the corresponding dropdown element
+      var dropdown = $("#exercisesDropdown_" + categoryId);
+
+      // Call the endpoint to get exercises for the category
+      $.get("/exercises/" + categoryId, function(exercises) {
+        // Populate the dropdown options
+        dropdown.empty();
+        dropdown.append($("<option></option>").text("--Select an exercise--").attr("disabled", "disabled").attr("selected", "selected"));
+        exercises.forEach(function(exercise) {
+          dropdown.append($("<option></option>").text(exercise.exerciseName));
+        });
+
+        // Listen for the change event on the dropdown
+        dropdown.on("change", function() {
+          var selectedOption = dropdown.find("option:selected").text();
+
+          // Update the selected exercise variable
+          if (selectedOption !== "--Select an exercise--") {
+            selectedExercise = selectedOption;
+          } else {
+            selectedExercise = null;
+          }
+
+          // Reset the selection in other dropdowns
+          categoryIds.forEach(function(id) {
+            if (id !== categoryId) {
+              $("#exercisesDropdown_" + id).val("--Select an exercise--");
+            }
+          });
+        });
+      });
+    });
+
+    // Listen for the click event on the "Add" button
+    $("#addBtn").on("click", function() {
+      var weight = $("#weightBox").val();
+      var reps = $("#repBox").val();
+
+      // Check if an exercise is selected and weight and reps are not empty
+      if (selectedExercise !== null && weight.trim() !== "" && reps.trim() !== "") {
+        // Check if weight is a valid number
+        var weightRegex = /^\d+(\.\d+)?$/;
+        if (!weightRegex.test(weight)) {
+          alert("Please enter a valid weight.");
+          return;
+        }
+
+        // Check if reps is a valid number
+        var repsRegex = /^\d+$/;
+        if (!repsRegex.test(reps)) {
+          alert("Please enter a valid number of reps.");
+          return;
+        }
+
+        // If all validations pass, log the values
+        console.log("Selected Exercise:", selectedExercise);
+        console.log("Weight:", weight);
+        console.log("Reps:", reps);
+      } else {
+        if (selectedExercise === null) {
+          alert("Please select an exercise.");
+        } else if (weight.trim() === "") {
+          alert("Weight field cannot be blank.");
+        } else if (reps.trim() === "") {
+          alert("Reps field cannot be blank.");
+        } else if (reps.trim() === "0") {
+            console.log("fsdfsfsdfs")
+            alert("Reps cannot be 0.");
+        }
+      }
+    });
+  });
+</script>
+
+      
+      
+      
+      
 </body>
 </html>

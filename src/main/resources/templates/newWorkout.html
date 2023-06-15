@@ -12,191 +12,215 @@
     <link rel="stylesheet" href="/static/newWorkoutStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+        }
+    </style>
+
+
     <title>New Workout</title>
 </head>
 <body>
-    
-    <main>
 
-        <div id="closeDiv">
-            <button id="closeBtn">X</button>
-        </div>
+<main>
 
-        <h2 class="section__title">Create New Workout</h2>
-        <br>
+    <div id="closeDiv">
+        <button id="closeBtn">X</button>
+    </div>
 
-        <div id="exercises">
+    <h2 class="section__title">Create New Workout</h2>
+    <br>
 
-            <label for="cars">Abs:</label>
-            <select name="cars" id="exercisesDropdown_1">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
+    <div id="exercises">
 
-            <br><br><br>
-
-            <label for="cars">Back:</label>
-            <select name="cars" id="exercisesDropdown_2">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
-
-            <br><br><br>
-
-            <label for="cars">Biceps:</label>
-            <select name="cars" id="exercisesDropdown_3">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
-
-            <br><br><br>
-
-            <label for="cars">Chest:</label>
-            <select name="cars" id="exercisesDropdown_4">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
-
-            <br><br><br>
-
-            <label for="cars">Legs:</label>
-            <select name="cars" id="exercisesDropdown_5">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
-
-            <br><br><br>
-
-            <label for="cars">Shoulders:</label>
-            <select name="cars" id="exercisesDropdown_6">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
-
-            <br><br><br>
-
-            <label for="cars">Triceps:</label>
-            <select name="cars" id="exercisesDropdown_7">
-                <option value="" disabled selected>--Select an exercise--</option>
-            </select>
-            <br><br><br> <br>       
-        </div>
-
-        <div id="reps">
-            <label for="reps">Reps:</label>
-            <input type="text" id="repBox" name="reps"><br><br>
-        </div>
-
-        <div id="weight">
-            <label for="reps">Weight (KG):</label>
-            <input type="text" id="weightBox" name="weight"><br><br>
-        </div>
+        <label for="cars">Abs:</label>
+        <select name="cars" id="exercisesDropdown_1">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
 
         <br><br><br>
 
-        <div id="addDiv">
-            <button id="addBtn">Add</button>
-        </div>
+        <label for="cars">Back:</label>
+        <select name="cars" id="exercisesDropdown_2">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
 
-    </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <br><br><br>
 
-    <script>
-        $(document).ready(function () {
-            // Define an array of category IDs
-            var categoryIds = [1, 2, 3, 4, 5, 6, 7];
+        <label for="cars">Biceps:</label>
+        <select name="cars" id="exercisesDropdown_3">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
 
-            // Initialize a variable to store the selected exercise
-            var selectedExercise = null;
+        <br><br><br>
 
-            // Initialize an array to store the sets
-            var sets = [];
+        <label for="cars">Chest:</label>
+        <select name="cars" id="exercisesDropdown_4">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
 
-            // Loop through each category ID
-            categoryIds.forEach(function (categoryId) {
-                // Get the corresponding dropdown element
-                var dropdown = $("#exercisesDropdown_" + categoryId);
+        <br><br><br>
 
-                // Call the endpoint to get exercises for the category
-                $.get("/exercises/" + categoryId, function (exercises) {
-                    // Populate the dropdown options
-                    dropdown.empty();
-                    dropdown.append($("<option></option>").text("--Select an exercise--").attr("disabled", "disabled").attr("selected", "selected"));
-                    exercises.forEach(function (exercise) {
-                        dropdown.append($("<option></option>").text(exercise.exerciseName));
-                    });
+        <label for="cars">Legs:</label>
+        <select name="cars" id="exercisesDropdown_5">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
 
-                    // Listen for the change event on the dropdown
-                    dropdown.on("change", function () {
-                        var selectedOption = dropdown.find("option:selected").text();
+        <br><br><br>
 
-                        // Update the selected exercise variable
-                        if (selectedOption !== "--Select an exercise--") {
-                            selectedExercise = selectedOption;
-                        } else {
-                            selectedExercise = null;
+        <label for="cars">Shoulders:</label>
+        <select name="cars" id="exercisesDropdown_6">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
+
+        <br><br><br>
+
+        <label for="cars">Triceps:</label>
+        <select name="cars" id="exercisesDropdown_7">
+            <option value="" disabled selected>--Select an exercise--</option>
+        </select>
+        <br><br><br> <br>
+    </div>
+
+    <div id="reps">
+        <label for="reps">Reps:</label>
+        <input type="text" id="repBox" name="reps"><br><br>
+    </div>
+
+    <div id="weight">
+        <label for="reps">Weight (KG):</label>
+        <input type="text" id="weightBox" name="weight"><br><br>
+    </div>
+
+    <br><br><br>
+
+    <div id="addDiv">
+        <button id="addBtn">Add</button>
+    </div>
+
+    <div id="popup" class="popup">
+        Set added
+    </div>
+
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Define an array of category IDs
+        var categoryIds = [1, 2, 3, 4, 5, 6, 7];
+
+        // Initialize a variable to store the selected exercise
+        var selectedExercise = null;
+
+        // Initialize an array to store the sets
+        var sets = [];
+
+        // Loop through each category ID
+        categoryIds.forEach(function (categoryId) {
+            // Get the corresponding dropdown element
+            var dropdown = $("#exercisesDropdown_" + categoryId);
+
+            // Call the endpoint to get exercises for the category
+            $.get("/exercises/" + categoryId, function (exercises) {
+                // Populate the dropdown options
+                dropdown.empty();
+                dropdown.append($("<option></option>").text("--Select an exercise--").attr("disabled", "disabled").attr("selected", "selected"));
+                exercises.forEach(function (exercise) {
+                    dropdown.append($("<option></option>").text(exercise.exerciseName));
+                });
+
+                // Listen for the change event on the dropdown
+                dropdown.on("change", function () {
+                    var selectedOption = dropdown.find("option:selected").text();
+
+                    // Update the selected exercise variable
+                    if (selectedOption !== "--Select an exercise--") {
+                        selectedExercise = selectedOption;
+                    } else {
+                        selectedExercise = null;
+                    }
+
+                    // Reset the selection in other dropdowns
+                    categoryIds.forEach(function (id) {
+                        if (id !== categoryId) {
+                            $("#exercisesDropdown_" + id).val("--Select an exercise--");
                         }
-
-                        // Reset the selection in other dropdowns
-                        categoryIds.forEach(function (id) {
-                            if (id !== categoryId) {
-                                $("#exercisesDropdown_" + id).val("--Select an exercise--");
-                            }
-                        });
                     });
                 });
             });
-
-            // Listen for the click event on the "Add" button
-            // Listen for the click event on the "Add" button
-$("#addBtn").on("click", function () {
-    var weight = $("#weightBox").val();
-    var reps = $("#repBox").val();
-
-    // Check if an exercise is selected and weight and reps are not empty
-    if (selectedExercise !== null && weight.trim() !== "" && reps.trim() !== "") {
-        // Check if weight is a valid number
-        var weightRegex = /^\d+(\.\d+)?$/;
-        if (!weightRegex.test(weight)) {
-            alert("Please enter a valid weight.");
-            return;
-        }
-
-        // Check if reps is a valid number
-        var repsRegex = /^\d+$/;
-        if (!repsRegex.test(reps)) {
-            alert("Please enter a valid number of reps.");
-            return;
-        }
-
-        // If all validations pass, create a set object
-        var set = {
-            exercise: selectedExercise,
-            weight: weight,
-            reps: reps
-        };
-
-        // Add the set object to the sets array
-        sets.push(set);
-
-        // Clear the input fields
-        categoryIds.forEach(function (categoryId) {
-            $("#exercisesDropdown_" + categoryId).val("--Select an exercise--");
         });
-        $("#weightBox").val("");
-        $("#repBox").val("");
 
-        // Log the sets array
-        console.log("Sets:", sets);
-    } else {
-        if (selectedExercise === null) {
-            alert("Please select an exercise.");
-        } else if (weight.trim() === "") {
-            alert("Weight field cannot be blank.");
-        } else if (reps.trim() === "") {
-            alert("Reps field cannot be blank.");
-        } else if (reps.trim() === "0") {
-            console.log("fsdfsfsdfs")
-            alert("Reps cannot be 0.");
-        }
-    }
-});
+        // Listen for the click event on the "Add" button
+        $("#addBtn").on("click", function () {
+            var weight = $("#weightBox").val();
+            var reps = $("#repBox").val();
 
+            // Check if an exercise is selected and weight and reps are not empty
+            if (selectedExercise !== null && weight.trim() !== "" && reps.trim() !== "") {
+                // Check if weight is a valid number
+                var weightRegex = /^\d+(\.\d+)?$/;
+                if (!weightRegex.test(weight)) {
+                    alert("Please enter a valid weight.");
+                    return;
+                }
+
+                // Check if reps is a valid number
+                var repsRegex = /^\d+$/;
+                if (!repsRegex.test(reps)) {
+                    alert("Please enter a valid number of reps.");
+                    return;
+                }
+
+                // If all validations pass, create a set object
+                var set = {
+                    exercise: selectedExercise,
+                    weight: weight,
+                    reps: reps
+                };
+
+                // Add the set object to the sets array
+                sets.push(set);
+
+                // Clear the input fields
+                categoryIds.forEach(function (categoryId) {
+                    $("#exercisesDropdown_" + categoryId).val("--Select an exercise--");
+                });
+                $("#weightBox").val("");
+                $("#repBox").val("");
+
+                // Show the pop-up notification
+                $("#popup").fadeIn(200);
+                setTimeout(function () {
+                    $("#popup").fadeOut(200);
+                }, 2000);
+
+                // Log the sets array
+                console.log("Sets:", sets);
+            } else {
+                if (selectedExercise === null) {
+                    alert("Please select an exercise.");
+                } else if (weight.trim() === "") {
+                    alert("Weight field cannot be blank.");
+                } else if (reps.trim() === "") {
+                    alert("Reps field cannot be blank.");
+                } else if (reps.trim() === "0") {
+                    console.log("fsdfsfsdfs")
+                    alert("Reps cannot be 0.");
+                }
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>

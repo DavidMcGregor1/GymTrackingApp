@@ -163,6 +163,18 @@ public class MainController {
         return "index.html";
     }
 
+    @GetMapping(path = "/index.html")
+    public String mainPage2() {
+        System.out.println("Hit MainPage2 endpoint");
+        return "index.html";
+    }
+
+    @GetMapping(path = "/newWorkout.html")
+    public String newWorkout() {
+        System.out.println("Hit newWorkout endpoint");
+        return "newWorkout.html";
+    }
+
 
 
 

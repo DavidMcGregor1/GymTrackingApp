@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
 
+
+ @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
 :root {
     --header-height: 3rem;
   
@@ -17,20 +18,18 @@
     --z-fixed: 100;
   }
   
-
   * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     font-family: 'Outfit', sans-serif;
+    /* border: dotted red 1px; */
   }
-
   html {
     width: 100vw;
     height: 100vh;
     scroll-behavior: smooth;
   }
-
   body {
     width: 100vw;
     height: 100vh;
@@ -40,7 +39,6 @@
     background-color: var(--reptile-body);
     color: var(--text-color);
   }
-
   p {
     color: rgb(189, 180, 181);
     font-weight: bolder;
@@ -57,45 +55,35 @@
     margin-bottom: 1.5rem;
     padding-top: 2px;
   }
-
   .section {
     padding: 4.5rem 0 2rem;
   }
-
   label {
     color: rgb(189, 180, 181);
     font-weight: bolder;
   }
-
   main {
   }
-
-  /* f */
 
   #exercises {
     text-align: center;
   }
-
   #reps {
         position: relative;
         top: 16%;
         text-align: center  ;
   }
-
   #repBox {
     width: 15%
   }
-
   #weight {
     position: relative;
     top: 16%;
     text-align: center  ;
 }
-
 #weightBox {
     width: 15%
   }
-
   #addBtn {
     height: 70px;
   width: 200px;
@@ -105,22 +93,17 @@
   color: #FFF;
   font-size: larger ;
   }
-
   #addDiv {
     position: relative;
     top: 16%;
     text-align: center  ;
 }
-
 #closeDiv {
     display: flex;
     flex-direction: row-reverse;
-    /* padding-right: 8px; */
     padding-top: -10px;
 }
-
 #closeBtn {
-
     text-align: center;
     background-color: red;
     color: #FFF;
@@ -129,3 +112,52 @@
     height: 20%;
     
 }
+#currentWorkout {
+  margin-top: 20px;
+  color: #20C78C;
+}
+
+
+#currentWorkout h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+#currentWorkout ul {
+  list-style-type: none;
+  padding: 0;
+}
+#currentWorkout li {
+  margin-bottom: 5px;
+}
+
+#currentWorkout {
+  margin-top: 20px;
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  background-color: #eee;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  height: 190px;
+  border-radius: 5px;
+}
+#currentWorkoutTitle {
+  color: black;
+  font-size: 20px;
+  margin-bottom: 3px;
+  text-align: center;
+}
+#workoutList {
+  list-style-type: none;
+  padding: 0;
+}
+#workoutList li {
+  margin-bottom: 5px;
+  text-align: center;
+}
+ 
+

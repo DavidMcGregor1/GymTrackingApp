@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-
+    <link rel="stylesheet" href="/static/newWorkoutStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/newWorkoutStyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
@@ -48,48 +47,48 @@
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
 
-        <br><br><br>
+        <br><br>
 
         <label for="cars">Back:</label>
         <select name="cars" id="exercisesDropdown_2">
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
 
-        <br><br><br>
+        <br><br>
 
         <label for="cars">Biceps:</label>
         <select name="cars" id="exercisesDropdown_3">
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
 
-        <br><br><br>
+        <br><br>
 
         <label for="cars">Chest:</label>
         <select name="cars" id="exercisesDropdown_4">
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
 
-        <br><br><br>
+        <br><br>
 
         <label for="cars">Legs:</label>
         <select name="cars" id="exercisesDropdown_5">
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
 
-        <br><br><br>
+        <br><br>
 
         <label for="cars">Shoulders:</label>
         <select name="cars" id="exercisesDropdown_6">
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
 
-        <br><br><br>
+        <br><br>
 
         <label for="cars">Triceps:</label>
         <select name="cars" id="exercisesDropdown_7">
             <option value="" disabled selected>--Select an exercise--</option>
         </select>
-        <br><br><br> <br>
+        <br><br><br>
     </div>
 
     <div id="reps">
@@ -102,10 +101,15 @@
         <input type="text" id="weightBox" name="weight"><br><br>
     </div>
 
-    <br><br><br>
+    <br><br>
 
     <div id="addDiv">
         <button id="addBtn">Add</button>
+    </div>
+
+    <div id="currentWorkout">
+        <h3 id="currentWorkoutTitle">Current Workout</h3>
+        <ul id="workoutList"></ul>
     </div>
 
     <div id="popup" class="popup">
@@ -161,6 +165,17 @@
             });
         });
 
+
+
+        function updateCurrentWorkout() {
+                var workoutList = $("#workoutList");
+                workoutList.empty();
+
+                sets.forEach(function (set) {
+                    workoutList.append($("<li></li>").text(set.exercise + " - " + set.weight + " KG - " + set.reps + " reps"));
+                });
+            }
+
         // Listen for the click event on the "Add" button
         $("#addBtn").on("click", function () {
             var weight = $("#weightBox").val();
@@ -192,6 +207,8 @@
                 // Add the set object to the sets array
                 sets.push(set);
 
+                updateCurrentWorkout();
+
                 // Clear the input fields
                 categoryIds.forEach(function (categoryId) {
                     $("#exercisesDropdown_" + categoryId).val("--Select an exercise--");
@@ -219,6 +236,9 @@
                     alert("Reps cannot be 0.");
                 }
             }
+
+            
+
         });
     });
 </script>

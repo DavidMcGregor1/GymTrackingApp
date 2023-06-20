@@ -165,16 +165,23 @@
             });
         });
 
-
+        function showPopup(message) {
+            var popup = $("#popup");
+            popup.text(message);
+            popup.fadeIn(200);
+            setTimeout(function () {
+                popup.fadeOut(200);
+            }, 2000);
+        }
 
         function updateCurrentWorkout() {
-                var workoutList = $("#workoutList");
-                workoutList.empty();
+            var workoutList = $("#workoutList");
+            workoutList.empty();
 
-                sets.forEach(function (set) {
-                    workoutList.append($("<li></li>").text(set.exercise + " - " + set.weight + " KG - " + set.reps + " reps"));
-                });
-            }
+            sets.forEach(function (set) {
+                workoutList.append($("<li></li>").text(set.exercise + " - " + set.weight + " KG - " + set.reps + " reps"));
+            });
+        }
 
         // Listen for the click event on the "Add" button
         $("#addBtn").on("click", function () {
@@ -186,14 +193,14 @@
                 // Check if weight is a valid number
                 var weightRegex = /^\d+(\.\d+)?$/;
                 if (!weightRegex.test(weight)) {
-                    alert("Please enter a valid weight.");
+                    showPopup("Please enter a valid weight.");
                     return;
                 }
 
                 // Check if reps is a valid number
                 var repsRegex = /^\d+$/;
                 if (!repsRegex.test(reps)) {
-                    alert("Please enter a valid number of reps.");
+                    showPopup("Please enter a valid number of reps.");
                     return;
                 }
 
@@ -217,28 +224,21 @@
                 $("#repBox").val("");
 
                 // Show the pop-up notification
-                $("#popup").fadeIn(200);
-                setTimeout(function () {
-                    $("#popup").fadeOut(200);
-                }, 2000);
+                showPopup("Set added");
 
                 // Log the sets array
                 console.log("Sets:", sets);
             } else {
                 if (selectedExercise === null) {
-                    alert("Please select an exercise.");
+                    showPopup("Please select an exercise.");
                 } else if (weight.trim() === "") {
-                    alert("Weight field cannot be blank.");
+                    showPopup("Weight field cannot be blank.");
                 } else if (reps.trim() === "") {
-                    alert("Reps field cannot be blank.");
+                    showPopup("Reps field cannot be blank.");
                 } else if (reps.trim() === "0") {
-                    console.log("fsdfsfsdfs")
-                    alert("Reps cannot be 0.");
+                    showPopup("Reps cannot be 0.");
                 }
             }
-
-            
-
         });
     });
 </script>

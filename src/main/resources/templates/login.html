@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" type="text/css" href="../static/login.css">
+</head>
+<body>
+  <h1 id="welcome-header">Welcome to the gym tracking app!</h1>
+  <div class="container">
+    <form>
+      <h2 class="makeWhite">Login</h2>
+      <input type="text" placeholder="Email or username" required>
+      <input type="password" placeholder="Password" required>
+      <p class="signup makeWhite"><a id="signup-btn" href="signup.html">Sign up</a></p>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+
+    const signupButton = document.getElementById("signup-btn");
+    signupButton.addEventListener("click", () => {
+        console.log("Clicked sign up button")
+        window.location.href = "signup.html"; 
+    })
+
+  </script>
+
+</body>
+</html>

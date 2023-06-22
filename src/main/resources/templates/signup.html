@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" type="text/css" href="../static/login.css">
+</head>
+<body>
+    <h1 id="welcome-header">Welcome to the gym tracking app</h1>
+
+  <div class="container">
+    <form>
+      <h2 class="makeWhite">Sign Up</h2>
+      <input type="text" placeholder="Username" required>
+      <input type="password" placeholder="Password" required>
+      <input type="password" placeholder="Confirm Password" required>
+      
+
+      <p class="signup makeWhite"> <a id="continue-as-guest" href="#">Continue as guest</a> <a id="signup-btn" href="login.html">Login</a></p>
+
+
+      <button id="signUpButton" type="submit">Sign Up</button>
+
+    </form>
+  </div>
+
+  <script>
+
+const signInButton = document.getElementById("signup-btn");
+signInButton.addEventListener("click", () => {
+        console.log("Clicked sign in button")
+        window.location.href = "login.html"; 
+    })
+
+  </script>
+
+</body>
+</html>

@@ -193,6 +193,18 @@ public class MainController {
         return "newWorkout.html";
     }
 
+    @GetMapping(path = "/login.html")
+    public String login() {
+        System.out.println("Hit login endpoint");
+        return "login.html";
+    }
+
+    @GetMapping(path = "/signup.html")
+    public String signup() {
+        System.out.println("Hit signup endpoint");
+        return "signup.html";
+    }
+
 
 
 

@@ -160,6 +160,11 @@
 #workoutList li {
   margin-bottom: 5px;
   text-align: center;
+  color: black !important;
+}
+
+#workoutList {
+  color: #201D1E;
 }
  
 

@@ -204,6 +204,11 @@
                     return;
                 }
 
+                if (reps < 1) {
+                    showPopup("Reps cannot be 0");
+                    return;
+                }
+
                 // If all validations pass, create a set object
                 var set = {
                     exercise: selectedExercise,

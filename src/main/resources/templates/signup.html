@@ -10,9 +10,9 @@
   <div class="container">
     <form>
       <h2 class="makeWhite">Sign Up</h2>
-      <input type="text" placeholder="Username" required>
-      <input type="password" placeholder="Password" required>
-      <input type="password" placeholder="Confirm Password" required>
+      <input id="username" type="text" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
+      <input id="confirmPassword" type="password" placeholder="Confirm Password">
       
 
       <p class="signup makeWhite"> <a id="continue-as-guest" href="#">Continue as guest</a> <a id="signup-btn" href="login.html">Login</a></p>
@@ -23,7 +23,47 @@
     </form>
   </div>
 
+  <script src="https:///ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script>
+
+    $(document).ready(function(){
+      $("#signUpButton").click(function(){
+        console.log("function called")
+
+        var test = JSON.stringify({
+          "username": $("#username").val(),
+          "password": $("#password").val(),
+          "confirmPassword": $("#confirmPassword").val()
+        });
+
+        console.log("test object updates with username and password");
+
+        $.ajax({
+          url: "/signUp",
+          data: test,
+          type: "POST",
+          contentType: "application/json",
+          dataType: "json",
+          success: function(serverResponse) {
+            console.log("in ajax call")
+            console.log("test: " + test)
+            console.log("serverResponse: " + serverResponse)
+
+            if (serverResponse == false) {
+              console.log("Another user with that username already exists")
+              alert("Another user with that username already exists")
+              // window.location.href = "index.html";
+            } else {
+              console.log("fine")
+              alert("fine")
+            }
+          }
+        })
+
+
+      });
+    })
+
 
 const signInButton = document.getElementById("signup-btn");
 signInButton.addEventListener("click", () => {

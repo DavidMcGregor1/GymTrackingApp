@@ -298,6 +298,52 @@ public class MainController {
     }
 
 
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @PostMapping(path = "/signUp", consumes = "application/json", produces = "application/json")
+    public boolean signUp(@RequestBody LogInVm submittedEntry) throws GeneralSecurityException, UnsupportedEncodingException {
+
+        System.out.println("Hit /signUp endpoint");
+
+
+
+
+
+
+    LogInVm newEntry = new LogInVm(submittedEntry.username, submittedEntry.password);
+
+        List<Users> allUserEntries = repositoryUsers.findAll();
+
+        for(int i = 0; i < allUserEntries.stream().count(); i++) {
+            Users a = allUserEntries.get(i);
+
+            System.out.println("database.username >>> " + a.username);
+
+            System.out.println("inputted.username >>> " + newEntry.username);
+
+
+            if(a != null) {
+                System.out.println("The current two are the same: " + a.username.equals(newEntry.username));
+
+                if((a.username.equals(newEntry.username))) {
+                    System.out.println("Another user already has this username");
+                    newEntry.succeeded = false;
+                    break;
+                } else {
+                    System.out.println("Username is fine to use");
+                    newEntry.succeeded = true;
+                }
+
+            }
+
+        }
+
+
+        return newEntry.succeeded;
+
+
+    }
+
 
 
 

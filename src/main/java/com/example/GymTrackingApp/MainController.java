@@ -1,5 +1,6 @@
 package com.example.GymTrackingApp;
 
+import org.apache.catalina.User;
 import org.jboss.jandex.Main;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -251,6 +252,50 @@ public class MainController {
     }
 
 
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
+    public boolean logIn(@RequestBody LogInVm submittedEntry) throws GeneralSecurityException, UnsupportedEncodingException {
+
+        System.out.println("Hit /login endpoint");
+
+        LogInVm newEntry = new LogInVm(submittedEntry.username, submittedEntry.password);
+
+        List<Users> allUserEntries = repositoryUsers.findAll();
+
+        for(int i = 0; i < allUserEntries.stream().count(); i++) {
+            Users a = allUserEntries.get(i);
+
+            System.out.println("database.username >>> " + a.username);
+            System.out.println("database.password >>> " + a.password);
+
+            System.out.println("inputted.username >>> " + newEntry.username);
+            System.out.println("inputted.password >>> " + newEntry.password);
+
+
+            if(a != null) {
+                System.out.println(a.username.equals(newEntry.username));
+                System.out.println(a.password.equals(newEntry.password));
+
+                if((a.username.equals(newEntry.username)) && (a.password.equals(newEntry.password))) {
+                    System.out.println("Successfully logged in");
+                    newEntry.succeeded = true;
+                    break;
+                } else {
+                    System.out.println("No Match");
+                    newEntry.succeeded = false;
+                }
+
+            }
+
+        }
+
+        System.out.println(java.time.LocalDate.now() + " " + newEntry.username + " " + newEntry.password + " " + newEntry.succeeded);
+
+        return newEntry.succeeded;
+    }
 
 
 

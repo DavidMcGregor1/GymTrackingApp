@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 @Controller
@@ -228,6 +230,27 @@ public class MainController {
         return result;
 
     }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @PostMapping(path = "/addUser")
+    public UsersVm addUser(@RequestBody UsersVm submittedUser) throws GeneralSecurityException, UnsupportedEncodingException {
+        System.out.println("Hit addUser endpoint");
+
+        Users newUser = new Users();
+        newUser.setUsername(submittedUser.username);
+        newUser.setPassword(submittedUser.password);
+
+        System.out.println("Submitted Username: ]" + submittedUser.username + "[");
+        System.out.println("Submitted Password: ]" + submittedUser.password + "[");
+
+        repositoryUsers.save(newUser);
+
+        return submittedUser;
+
+    }
+
+
 
 
 

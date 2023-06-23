@@ -12,15 +12,18 @@ import java.util.*;
 @Controller
 public class MainController {
 
-    public MainController(ExercisesRepository e, CategoriesRepository c, EcRepository ec) {
+    public MainController(ExercisesRepository e, CategoriesRepository c, EcRepository ec, UsersRepository u) {
         repositoryExercises = e;
         repositoryCategories = c;
         repositoryEcMapping = ec;
+        repositoryUsers = u;
     }
 
     private ExercisesRepository repositoryExercises;
     private CategoriesRepository repositoryCategories;
     private EcRepository repositoryEcMapping;
+
+    private UsersRepository repositoryUsers;
 
     @GetMapping("/hello")
     public String sayHello() {
@@ -203,6 +206,27 @@ public class MainController {
     public String signup() {
         System.out.println("Hit signup endpoint");
         return "signup.html";
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @GetMapping(path = "/getAllUsers")
+    public String getAllUsers() {
+        System.out.println("Hit getAllUsers endpoint");
+
+        List<Users> allDbUsers = repositoryUsers.findAll();
+
+        String result = "----> ";
+
+        for (int i = 0; i < allDbUsers.stream().count(); i++) {
+            Users a = allDbUsers.get(i);
+            if( a != null) {
+                result = result + a.getUsername() + ", ";
+            }
+        }
+
+        return result;
+
     }
 
 

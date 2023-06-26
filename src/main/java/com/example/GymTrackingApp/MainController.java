@@ -302,47 +302,40 @@ public class MainController {
     @ResponseBody
     @PostMapping(path = "/signUp", consumes = "application/json", produces = "application/json")
     public boolean signUp(@RequestBody LogInVm submittedEntry) throws GeneralSecurityException, UnsupportedEncodingException {
-
         System.out.println("Hit /signUp endpoint");
 
-
-
-
-
-
-    LogInVm newEntry = new LogInVm(submittedEntry.username, submittedEntry.password);
-
+        LogInVm newEntry = new LogInVm(submittedEntry.username, submittedEntry.password);
         List<Users> allUserEntries = repositoryUsers.findAll();
 
-        for(int i = 0; i < allUserEntries.stream().count(); i++) {
+        boolean usernameExists = false;
+        for (int i = 0; i < allUserEntries.size(); i++) {
             Users a = allUserEntries.get(i);
 
-            System.out.println("database.username >>> " + a.username);
-
+            System.out.println("database.username >>> " + a.getUsername());
             System.out.println("inputted.username >>> " + newEntry.username);
 
-
-            if(a != null) {
-                System.out.println("The current two are the same: " + a.username.equals(newEntry.username));
-
-                if((a.username.equals(newEntry.username))) {
-                    System.out.println("Another user already has this username");
-                    newEntry.succeeded = false;
-                    break;
-                } else {
-                    System.out.println("Username is fine to use");
-                    newEntry.succeeded = true;
-                }
-
+            if (a.getUsername().equals(newEntry.username)) {
+                System.out.println("Another user already has this username");
+                usernameExists = true;
+                break;
             }
-
         }
 
+        if (!usernameExists) {
+            System.out.println("Username is fine to use");
+            Users newUser = new Users();
+            newUser.setUsername(newEntry.username);
+            newUser.setPassword(newEntry.password);
+            repositoryUsers.save(newUser);
+            newEntry.succeeded = true;
+        } else {
+            newEntry.succeeded = false;
+        }
 
         return newEntry.succeeded;
-
-
     }
+
+
 
 
 

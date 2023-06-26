@@ -54,6 +54,10 @@
       popup.fadeIn(200);
       setTimeout(function () {
           popup.fadeOut(200);
+          // Reset input fields
+          $("#username").val("");
+          $("#password").val("");
+          $("#confirmPassword").val("");
       }, 2000);
     }
 

@@ -3,9 +3,24 @@
 <head>
   <title>Sign Up Page</title>
   <link rel="stylesheet" type="text/css" href="../static/login.css">
+
+  <style>
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        display: none;
+    }
+</style>
 </head>
 <body>
-    <h1 id="welcome-header">Welcome to the gym tracking app</h1>
+  <h1 id="welcome-header">Welcome to the gym tracking app</h1>
 
   <div class="container">
     <form>
@@ -13,65 +28,94 @@
       <input id="username" type="text" placeholder="Username">
       <input id="password" type="password" placeholder="Password">
       <input id="confirmPassword" type="password" placeholder="Confirm Password">
-      
 
-      <p class="signup makeWhite"> <a id="continue-as-guest" href="#">Continue as guest</a> <a id="signup-btn" href="login.html">Login</a></p>
+      <p id="passwordRequirements" class="makeWhite" style="display: none; color: red;"></p>
 
+      <p class="signup makeWhite">
+        <a id="continue-as-guest" href="#">Continue as guest</a>
+        <a id="signup-btn" href="login.html">Login</a>
+      </p>
 
       <button id="signUpButton" type="submit">Sign Up</button>
+
+
+      <div id="popup" class="popup">
+        Set added
+      </div>
 
     </form>
   </div>
 
-  <script src="https:///ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script>
+    function showPopup(message) {
+      var popup = $("#popup");
+      popup.text(message);
+      popup.fadeIn(200);
+      setTimeout(function () {
+          popup.fadeOut(200);
+      }, 2000);
+    }
 
     $(document).ready(function(){
-      $("#signUpButton").click(function(){
-        console.log("function called")
+      $("#signUpButton").click(function(event){
+        event.preventDefault(); // Prevent the form from being submitted
 
-        var test = JSON.stringify({
-          "username": $("#username").val(),
-          "password": $("#password").val(),
-          "confirmPassword": $("#confirmPassword").val()
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match. Please make sure they are the same.");
+          return false;
+        }
+
+        if (!validatePassword(password)) {
+          $("#passwordRequirements").text("Password must be at least 8 characters long and include one number and one special character.");
+          $("#passwordRequirements").show();
+          return false;
+        }
+
+        var userData = JSON.stringify({
+          "username": username,
+          "password": password,
+          "confirmPassword": confirmPassword
         });
-
-        console.log("test object updates with username and password");
 
         $.ajax({
           url: "/signUp",
-          data: test,
+          data: userData,
           type: "POST",
           contentType: "application/json",
           dataType: "json",
           success: function(serverResponse) {
-            console.log("in ajax call")
-            console.log("test: " + test)
-            console.log("serverResponse: " + serverResponse)
+            console.log("in ajax call");
+            console.log("serverResponse: " + serverResponse);
 
-            if (serverResponse == false) {
-              console.log("Another user with that username already exists")
-              alert("Another user with that username already exists")
+            if (serverResponse === false) {
+              console.log("Another user with that username already exists");
+              showPopup("Another user with that username already exists");
               // window.location.href = "index.html";
             } else {
-              console.log("fine")
-              alert("fine")
+              console.log("Fine");
+              showPopup("Successful");
             }
           }
-        })
-
-
+        });
       });
-    })
+    });
 
+    const signInButton = document.getElementById("signup-btn");
+    signInButton.addEventListener("click", () => {
+      console.log("Clicked sign in button");
+      window.location.href = "login.html";
+    });
 
-const signInButton = document.getElementById("signup-btn");
-signInButton.addEventListener("click", () => {
-        console.log("Clicked sign in button")
-        window.location.href = "login.html"; 
-    })
-
+    function validatePassword(password) {
+      // At least 8 characters, one number, one special character
+      var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+      return passwordRegex.test(password);
+    }
   </script>
-
 </body>
 </html>

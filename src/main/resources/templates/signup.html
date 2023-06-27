@@ -108,13 +108,17 @@ function showPopup(message) {
             console.log("serverResponse: " + serverResponse);
 
             if (serverResponse === false) {
-              console.log("Another user with that username already exists");
-              showPopup("Another user with that username already exists");
-              // window.location.href = "index.html";
-            } else {
-              console.log("Fine");
-              showPopup("Successful");
-            }
+  console.log("Another user with that username already exists");
+  showPopup("Another user with that username already exists");
+  // window.location.href = "index.html";
+} else {
+  console.log("Fine");
+  showPopup("Account created, please log in");
+  setTimeout(function() {
+    window.location.href = "login.html";
+  }, 1400);
+}
+
           }
         });
       });

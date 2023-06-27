@@ -3,6 +3,26 @@
 <head>
   <title>Login Page</title>
   <link rel="stylesheet" type="text/css" href="../static/login.css">
+
+  <style>
+    #loginButton {
+      padding: 10px;
+    background-color: #089F6A;
+    color: black;
+    border: none;
+    border-radius: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    width: 45%;
+    height: 60px;
+}
+
+#loginButton:hover {
+  background-color: #257558;
+}
+  </style>
+
 </head>
 <body>
   <h1 id="welcome-header">Welcome to the gym tracking app!</h1>
@@ -11,33 +31,24 @@
       <h2 class="makeWhite">Login</h2>
       <input id="username" type="text" placeholder="Email or username" required>
       <input id="password" type="password" placeholder="Password" required>
+
+      <p id="passwordRequirements" class="makeWhite" style="display: none; color: red;"></p>
+
       <p class="signup makeWhite"><a id="signup-btn" href="signup.html">Sign up</a></p>
-      <button id="loginButton" type="submit">Login</button>
+      <button id="loginButton">Login</button>
     </form>
   </div>
 
-
-<script src="https:///ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script>
-
-    const signupButton = document.getElementById("signup-btn");
-    signupButton.addEventListener("click", () => {
-        console.log("Clicked sign up button")
-        window.location.href = "signup.html"; 
-    })
-
-
     $(document).ready(function(){
-      $("#loginButton").click(function(){
-        console.log("Clicked login button")
-        
+      $("form").submit(function(event){
+        event.preventDefault(); // Prevent form submission
+
         var test = JSON.stringify({
           "username": $("#username").val(),
           "password": $("#password").val()
         });
-
-        console.log("test object updates with username and password");
-
 
         $.ajax({
           url: "/login",
@@ -46,27 +57,18 @@
           contentType: "application/json",
           dataType: "json",
           success: function(serverResponse) {
-            console.log("in ajax call")
-            console.log("test: " + test)
-            console.log("serverResponse: " + serverResponse)
-
             if (serverResponse == true) {
-              console.log("success")
-              // alert("Login successful")
+              console.log("success");
               window.location.href = "index.html";
             } else {
-              console.log("failure")
-              alert("Incorrect username or password")
+              console.log("failure");
+              $("#passwordRequirements").text("Incorrect username or password");
+              $("#passwordRequirements").show();
             }
           }
-        })
-
-
+        });
       });
-    })
-
-
+    });
   </script>
-
 </body>
 </html>

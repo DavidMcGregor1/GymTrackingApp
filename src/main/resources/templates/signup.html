@@ -48,18 +48,32 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script>
-    function showPopup(message) {
-      var popup = $("#popup");
-      popup.text(message);
-      popup.fadeIn(200);
-      setTimeout(function () {
-          popup.fadeOut(200);
-          // Reset input fields
-          $("#username").val("");
-          $("#password").val("");
-          $("#confirmPassword").val("");
-      }, 2000);
-    }
+
+function showPopup(message) {
+  var popup = $("#popup");
+  popup.text(message);
+  popup.fadeIn(200);
+  setTimeout(function () {
+    popup.fadeOut(200);
+    // Reset input fields
+    $("#username").val("");
+    $("#password").val("");
+    $("#confirmPassword").val("");
+  }, 2000);
+
+  setTimeout(function () {
+    $("#passwordRequirements").text("").hide();
+  }, 2000);
+  
+  setTimeout(function () {
+    $("#passwordRequirements").hide();
+  }, 2000);
+}
+
+
+    
+   
+
 
     $(document).ready(function(){
       $("#signUpButton").click(function(event){
@@ -70,10 +84,10 @@
         var confirmPassword = $("#confirmPassword").val();
 
         if (password !== confirmPassword) {
-          $("#passwordRequirements").text("Passwords do not match. Please make sure they are the same.");
+          $("#passwordRequirements").text("Passwords do not match. Please make sure they are the same g.");
           $("#passwordRequirements").show();
           return false;
-        }
+        } 
 
         if (!validatePassword(password)) {
           $("#passwordRequirements").text("Password must be at least 8 characters long and include one number and one special character.");

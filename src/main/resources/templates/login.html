@@ -64,6 +64,9 @@
               console.log("failure");
               $("#passwordRequirements").text("Incorrect username or password");
               $("#passwordRequirements").show();
+              setTimeout(function() {
+                $("#passwordRequirements").hide();
+              }, 2000);
             }
           }
         });

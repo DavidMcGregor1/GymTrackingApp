@@ -39,6 +39,10 @@
     background-color: var(--reptile-body);
     color: var(--text-color);
   }
+
+
+  
+
   p {
     color: rgb(189, 180, 181);
     font-weight: bolder;

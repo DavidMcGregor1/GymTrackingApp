@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="newWorkoutTest.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+        }
+    </style>
+
+
+    <title>New Workout</title>
+</head>
+<body>
+
+    <h1 class="makeWhite">Create new workout</h1>
+    
+    <main>
+        <div class="column">
+
+            <div class="leftItems">
+
+                <div class="exerciseDropdowns">
+
+                    <label class="makeWhite dropdownLabels" for="fname">Name:</label>
+                    <input type="text" id="inputName" name="fname"><br><br>
+
+                    <label class="makeWhite dropdownLabels" for="cars">Abs:</label>
+                    <select name="cars" id="exercisesDropdown_1">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+            
+                    <br><br>
+            
+                    <label class="makeWhite dropdownLabels" for="cars">Back:</label>
+                    <select name="cars" id="exercisesDropdown_2">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+            
+                    <br><br>
+            
+                    <label class="makeWhite dropdownLabels" for="cars">Biceps:</label>
+                    <select name="cars" id="exercisesDropdown_3">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+            
+                    <br><br>
+            
+                    <label class="makeWhite dropdownLabels" for="cars">Chest:</label>
+                    <select name="cars" id="exercisesDropdown_4">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+            
+                    <br><br>
+            
+                    <label class="makeWhite dropdownLabels" for="cars">Legs:</label>
+                    <select name="cars" id="exercisesDropdown_5">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+            
+                    <br><br>
+            
+                    <label class="makeWhite dropdownLabels colourG" for="cars">Shoulders:</label>
+                    <select name="cars" id="exercisesDropdown_6">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+            
+                    <br><br>
+            
+                    <label class="makeWhite dropdownLabels" for="cars">Triceps:</label>
+                    <select name="cars" id="exercisesDropdown_7">
+                        <option value="" disabled selected>--Select an exercise--</option>
+                    </select>
+                </div>
+
+                
+              
+        
+                <div id="reps">
+                    <label class="makeWhite dropdownLabels" for="reps">Reps:</label>
+                    <input type="text" id="repBox" name="reps"><br><br>
+                </div>
+                
+                <div id="weight">
+                    <label class="makeWhite dropdownLabels" for="reps">Weight (KG):</label>
+                    <input type="text" id="weightBox" name="weight"><br><br>
+                </div>
+
+                
+                    <button id="addBtn">Add</button>
+
+                    
+            </div>
+
+           
+
+
+    </div>
+        </div>
+        <div class="column">
+
+            <div class="rightItems">
+                <div class="rectangle"></div>
+
+
+                <div id="currentWorkout">
+                    <p id="dateHeader"></p>
+                    <h3 id="currentWorkoutTitle">Current Workout</h3>
+                    <ul id="workoutList"></ul>
+                </div>
+
+
+            </div>
+
+
+            <div id="popup" class="popup">
+                Set added
+            </div>
+
+
+            <button class="edit-button">Submit</button>
+
+            
+        </div>
+
+    
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Define an array of category IDs
+            var categoryIds = [1, 2, 3, 4, 5, 6, 7];
+    
+            // Initialize a variable to store the selected exercise
+            var selectedExercise = null;
+    
+            // Initialize an array to store the sets
+            var sets = [];
+    
+            // Loop through each category ID
+            categoryIds.forEach(function (categoryId) {
+                // Get the corresponding dropdown element
+                var dropdown = $("#exercisesDropdown_" + categoryId);
+    
+                // Call the endpoint to get exercises for the category
+                $.get("/exercises/" + categoryId, function (exercises) {
+                    // Populate the dropdown options
+                    dropdown.empty();
+                    dropdown.append($("<option></option>").text("--Select an exercise--").attr("disabled", "disabled").attr("selected", "selected"));
+                    exercises.forEach(function (exercise) {
+                        dropdown.append($("<option></option>").text(exercise.exerciseName));
+                    });
+    
+                    // Listen for the change event on the dropdown
+                    dropdown.on("change", function () {
+                        var selectedOption = dropdown.find("option:selected").text();
+    
+                        // Update the selected exercise variable
+                        if (selectedOption !== "--Select an exercise--") {
+                            selectedExercise = selectedOption;
+                        } else {
+                            selectedExercise = null;
+                        }
+    
+                        // Reset the selection in other dropdowns
+                        categoryIds.forEach(function (id) {
+                            if (id !== categoryId) {
+                                $("#exercisesDropdown_" + id).val("--Select an exercise--");
+                            }
+                        });
+                    });
+                });
+            });
+    
+            function showPopup(message) {
+                var popup = $("#popup");
+                popup.text(message);
+                popup.fadeIn(200);
+                setTimeout(function () {
+                    popup.fadeOut(200);
+                }, 2000);
+            }
+    
+            function updateCurrentWorkout() {
+                var workoutList = $("#workoutList");
+                workoutList.empty();
+    
+                sets.forEach(function (set) {
+                    workoutList.append($("<li></li>").text(set.exercise + " - " + set.weight + " KG - " + set.reps + " reps"));
+                });
+            }
+    
+            // Listen for the click event on the "Add" button
+            $("#addBtn").on("click", function () {
+                var weight = $("#weightBox").val();
+                var reps = $("#repBox").val();
+                var header = document.getElementById("currentWorkoutTitle");
+                var inputName = document.getElementById("inputName");
+                var userInput = inputName.value;
+                header.innerHTML = userInput;
+
+
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth() + 1;
+                var year = currentDate.getFullYear().toString().slice(-2);
+                var formattedDate = `${day}/${month}/${year}`;
+                dateHeader.innerHTML = formattedDate;
+
+
+    
+                // Check if an exercise is selected and weight and reps are not empty
+                if (selectedExercise !== null && weight.trim() !== "" && reps.trim() !== "") {
+                    // Check if weight is a valid number
+                    var weightRegex = /^\d+(\.\d+)?$/;
+                    if (!weightRegex.test(weight)) {
+                        showPopup("Please enter a valid weight.");
+                        return;
+                    }
+    
+                    // Check if reps is a valid number
+                    var repsRegex = /^\d+$/;
+                    if (!repsRegex.test(reps)) {
+                        showPopup("Please enter a valid number of reps.");
+                        return;
+                    }
+    
+                    if (reps < 1) {
+                        showPopup("Reps cannot be 0");
+                        return;
+                    }
+    
+                    // If all validations pass, create a set object
+                    var set = {
+                        exercise: selectedExercise,
+                        weight: weight,
+                        reps: reps
+                    };
+    
+                    // Add the set object to the sets array
+                    sets.push(set);
+    
+                    updateCurrentWorkout();
+    
+                    // Clear the input fields
+                    categoryIds.forEach(function (categoryId) {
+                        $("#exercisesDropdown_" + categoryId).val("--Select an exercise--");
+                    });
+                    $("#weightBox").val("");
+                    $("#repBox").val("");
+    
+                    // Show the pop-up notification
+                    showPopup("Set added");
+    
+                    // Log the sets array
+                    console.log("Sets:", sets);
+                } else {
+                    if (selectedExercise === null) {
+                        showPopup("Please select an exercise.");
+                    } else if (weight.trim() === "") {
+                        showPopup("Weight field cannot be blank.");
+                    } else if (reps.trim() === "") {
+                        showPopup("Reps field cannot be blank.");
+                    } else if (reps.trim() === "0") {
+                        showPopup("Reps cannot be 0.");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
